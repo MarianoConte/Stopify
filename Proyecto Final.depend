@@ -1,0 +1,117 @@
+# depslib dependency file v1.0
+1572341072 source:d:\proyecto final\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"usuarios.h"
+
+1572340186 d:\proyecto final\usuarios.h
+	<string.h>
+
+1572340210 source:d:\proyecto final\usuarios.c
+	"usuarios.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1572983348 source:c:\users\maria\desktop\utn\proyecto final\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"usuarios.h"
+
+1572985540 c:\users\maria\desktop\utn\proyecto final\usuarios.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1572985543 source:c:\users\maria\desktop\utn\proyecto final\usuarios.c
+	"usuarios.h"
+
+1572939339 source:c:\users\usuario\desktop\proyecto final\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"usuarios.h"
+
+1572985540 c:\users\usuario\desktop\proyecto final\usuarios.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1572939430 source:c:\users\usuario\desktop\proyecto final\usuarios.c
+	"usuarios.h"
+
+1572941736 source:d:\proyecto finalv2\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"usuarios.h"
+
+1572941839 d:\proyecto finalv2\usuarios.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1572941037 source:d:\proyecto finalv2\usuarios.c
+	"usuarios.h"
+
+1573257961 source:c:\users\usuario\desktop\proyecto finalv2\cancionesbasico.c
+	"cancionesBasico.h"
+
+1573256528 c:\users\usuario\desktop\proyecto finalv2\cancionesbasico.h
+	<stdio.h>
+	<stdlib.h>
+
+1573258999 source:c:\users\usuario\desktop\proyecto finalv2\cancioneslista.c
+	"cancionesLista.h"
+
+1573258988 c:\users\usuario\desktop\proyecto finalv2\cancioneslista.h
+	<stdio.h>
+	<stdlib.h>
+	"cancionesBasico.h"
+
+1573259343 source:c:\users\usuario\desktop\proyecto finalv2\cancionesarbol.c
+	"cancionesArbol.h"
+
+1573258823 c:\users\usuario\desktop\proyecto finalv2\cancionesarbol.h
+	<stdio.h>
+	<stdlib.h>
+	"cancionesBasico.h"
+
+1573259285 source:c:\users\usuario\desktop\proyecto finalv2\celdasusuarios.c
+	"celdasUsuarios.h"
+
+1573259265 c:\users\usuario\desktop\proyecto finalv2\celdasusuarios.h
+	"usuarios.h"
+	"cancionesLista.h"
+
+1573259208 c:\users\usuario\desktop\proyecto finalv2\usuarios.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1573258915 source:c:\users\usuario\desktop\proyecto finalv2\funcionespantalla.c
+	"funcionesPantalla.h"
+
+1573258775 c:\users\usuario\desktop\proyecto finalv2\funcionespantalla.h
+	"celdasUsuarios.h"
+	"cancionesArbol.h"
+
+1573259356 source:c:\users\usuario\desktop\proyecto finalv2\playlist.c
+	"playlist.h"
+
+1573258092 c:\users\usuario\desktop\proyecto finalv2\playlist.h
+	"cancionesArbol.h"
+	"cancionesLista.h"
+	"celdasUsuarios.h"
+
+1573259251 source:c:\users\usuario\desktop\proyecto finalv2\usuarios.c
+	"usuarios.h"
+
+1573259299 source:c:\users\usuario\desktop\proyecto finalv2\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"funcionesPantalla.h"
+
