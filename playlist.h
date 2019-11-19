@@ -11,6 +11,8 @@ typedef struct
     int idCancion;
 } stPlaylist;
 
-void cargarPlaylistsUsuarios(stCelda * usuarios, int validos, nodoArbolCancion * arbolCancion);
-
+void pasarDeArchivoPlaylistToADL(stCelda * usuarios, int validos, nodoArbolCancion * arbolCancion); //
+void mostrarPlaylist(nodoListaCancion * lista);
+void guardarPlaylist(int idCancion, int idUsuario);
+int buscaUltimoIdPlaylist();
 #endif // PLAYLIST_H_INCLUDED

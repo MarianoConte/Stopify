@@ -58,7 +58,7 @@ nodoListaCancion* agregarEnOrdenPoridDeCancion(nodoListaCancion* lista, nodoList
     }
     return lista;
 }
-
+/*
 nodoListaCancion* archAlista(char nombreArchivoCanciones[], nodoListaCancion* lista){
 
     stCancion e;
@@ -76,8 +76,8 @@ nodoListaCancion* archAlista(char nombreArchivoCanciones[], nodoListaCancion* li
     }
 
     return lista;
-}
-
+}*/
+/*
 void listaAarch(char nombreArchCanciones[], nodoListaCancion* lista){
 
     FILE* fArchCanciones = fopen(nombreArchCanciones, "wb");
@@ -96,30 +96,8 @@ void listaAarch(char nombreArchCanciones[], nodoListaCancion* lista){
         fclose(fArchCanciones);
     }
 }
+*/
 
-void mostrarLista(nodoListaCancion* lista, nodoListaCancion* nuevoNodo){
-
-    nodoListaCancion* seguidora = lista;
-
-    while(seguidora!=NULL){
-
-        mostrarCancion(seguidora->c);
-        seguidora= seguidora->sig;
-    }
-}
-
-void mostrarListaCancionesPorGenero(nodoListaCancion* lista, char genero[]){
-
-    nodoListaCancion* seguidora= lista;
-
-    while(seguidora!=NULL){
-
-        if(genero==seguidora->c.genero){
-
-            mostrarCancion(seguidora->c);
-        }
-    }
-}
 
 nodoListaCancion* borrarNodoPorIdCancion(nodoListaCancion* lista, int idBorrada){
 
@@ -154,6 +132,27 @@ nodoListaCancion* buscarUltimaCancion(nodoListaCancion* lista){
         seguidora=seguidora->sig;
     }
     return seguidora;
+}
+
+int cantidadCancionesPlaylist(nodoListaCancion * lista){
+    int rta=0;
+    while(lista){
+        lista=lista->sig;
+        rta++;
+    }
+    return rta;
+}
+
+stCancion buscarPorPosNodo(nodoListaCancion * lista, int pos){
+    stCancion rta;
+    if(pos!=0){
+        pos--;
+        rta = buscarPorPosNodo(lista->sig, pos);
+    }
+    else{
+        rta = lista->c;
+    }
+    return rta;
 }
 
 /*Alta

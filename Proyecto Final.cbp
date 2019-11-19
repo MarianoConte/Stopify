@@ -31,9 +31,37 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="cancionesArbol.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="cancionesArbol.h" />
+		<Unit filename="cancionesBasico.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="cancionesBasico.h" />
+		<Unit filename="cancionesLista.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="cancionesLista.h" />
+		<Unit filename="celdasUsuarios.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="celdasUsuarios.h" />
+		<Unit filename="funcionesPantalla.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="funcionesPantalla.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="playlist.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="playlist.h" />
+		<Unit filename="usuarios.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="usuarios.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

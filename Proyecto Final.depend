@@ -115,3 +115,62 @@
 	<string.h>
 	"funcionesPantalla.h"
 
+1574195545 source:c:\users\user\desktop\material de la utn\stopify-master\cancionesarbol.c
+	"cancionesArbol.h"
+
+1574195445 c:\users\user\desktop\material de la utn\stopify-master\cancionesarbol.h
+	<stdio.h>
+	<stdlib.h>
+	"cancionesBasico.h"
+
+1574191945 c:\users\user\desktop\material de la utn\stopify-master\cancionesbasico.h
+	<stdio.h>
+	<stdlib.h>
+
+1574126657 source:c:\users\user\desktop\material de la utn\stopify-master\cancionesbasico.c
+	"cancionesBasico.h"
+
+1574192532 source:c:\users\user\desktop\material de la utn\stopify-master\cancioneslista.c
+	"cancionesLista.h"
+
+1574192580 c:\users\user\desktop\material de la utn\stopify-master\cancioneslista.h
+	<stdio.h>
+	<stdlib.h>
+	"cancionesBasico.h"
+
+1574115421 source:c:\users\user\desktop\material de la utn\stopify-master\celdasusuarios.c
+	"celdasUsuarios.h"
+
+1574191397 c:\users\user\desktop\material de la utn\stopify-master\celdasusuarios.h
+	"usuarios.h"
+	"cancionesLista.h"
+
+1574193378 c:\users\user\desktop\material de la utn\stopify-master\usuarios.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1574195433 source:c:\users\user\desktop\material de la utn\stopify-master\funcionespantalla.c
+	"funcionesPantalla.h"
+
+1574192862 c:\users\user\desktop\material de la utn\stopify-master\funcionespantalla.h
+	"celdasUsuarios.h"
+	"cancionesArbol.h"
+
+1574193226 source:c:\users\user\desktop\material de la utn\stopify-master\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"funcionesPantalla.h"
+
+1574193087 source:c:\users\user\desktop\material de la utn\stopify-master\playlist.c
+	"playlist.h"
+
+1574192952 c:\users\user\desktop\material de la utn\stopify-master\playlist.h
+	"cancionesArbol.h"
+	"cancionesLista.h"
+	"celdasUsuarios.h"
+
+1574111939 source:c:\users\user\desktop\material de la utn\stopify-master\usuarios.c
+	"usuarios.h"
+

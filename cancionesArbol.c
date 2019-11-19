@@ -17,12 +17,12 @@ nodoArbolCancion* crearNodoArbol (stCancion cancion){
     return nuevoNodo;
 }
 
-nodoArbolCancion * cargarArbol(){
+nodoArbolCancion * cargarArbolDesdeArchivo(){
     nodoArbolCancion * aux;
     int validos = cantidadCancionesArch();
     stCancion arreglo[validos];
     cargarArregloCanciones(arreglo);
-    aux = pasarArreglo2Arbol(arreglo, 1, validos);
+    aux = pasarArreglo2Arbol(arreglo, 0, validos-1);
     return aux;
 }
 
@@ -34,7 +34,7 @@ nodoArbolCancion * pasarArreglo2Arbol(stCancion * arreglo, int posMin, int posMa
     }
     else{
         int posMedia = (posMin + posMax)/2;
-        nodoArbolCancion * nuevo = crearNodoArbol(arreglo[posMedia]);
+        rta = crearNodoArbol(arreglo[posMedia]);
         rta->izq =  pasarArreglo2Arbol(arreglo, posMin, posMedia-1);
         rta->der = pasarArreglo2Arbol(arreglo, posMedia+1, posMax);
     }
@@ -45,7 +45,6 @@ nodoArbolCancion * pasarArreglo2Arbol(stCancion * arreglo, int posMin, int posMa
 nodoArbolCancion* insertarNodoArbol (nodoArbolCancion* arbol, nodoArbolCancion* nuevoNodo){
 
     if(arbol==NULL){
-
         arbol=nuevoNodo;
     }
     else{
@@ -81,6 +80,18 @@ void mostrarArbolIn(nodoArbolCancion* arbol){
     }
 }
 
+void mostrarArbolInGenero(nodoArbolCancion* arbol, char genero[]){
+
+    if(arbol!=NULL){
+
+        mostrarArbolIn(arbol->izq);
+        if(strcmp(genero,arbol->c.genero)==0){
+            mostrarCancion(arbol->c);
+        }
+        mostrarArbolIn(arbol->der);
+    }
+}
+
 void mostrarArbolPost(nodoArbolCancion* arbol){
 
     if(arbol!=NULL){
@@ -91,11 +102,10 @@ void mostrarArbolPost(nodoArbolCancion* arbol){
     }
 }
 
-nodoArbolCancion* borrarUnNodoArbol (nodoArbolCancion* arbol, int idCancion);
-
 
 stCancion buscarNodoPorId(nodoArbolCancion * arbolCancion, int id){
     stCancion a;
+    a.idCancion = -1;
     if(arbolCancion){
         if(arbolCancion->c.idCancion == id){
             a = arbolCancion->c;
@@ -111,3 +121,117 @@ stCancion buscarNodoPorId(nodoArbolCancion * arbolCancion, int id){
     }
     return a;
 }
+
+int existeCancionPorId(nodoArbolCancion * arbolCancion, int id){
+    int rta = 0;
+    if(arbolCancion){
+        if(arbolCancion->c.idCancion == id){
+            rta = 1;
+        }
+        else{
+            if(arbolCancion->c.idCancion > id){
+                rta = existeCancionPorId(arbolCancion->izq, id);
+            }
+            else{
+                rta = existeCancionPorId(arbolCancion->der, id);
+            }
+        }
+    }
+    return rta;
+}
+
+nodoArbolCancion* buscarMasIzqu(nodoArbolCancion* arbol){
+    nodoArbolCancion* masIzquierdo= NULL;
+    if(arbol==NULL){
+        masIzquierdo=arbol;
+    }
+    else{
+        masIzquierdo=buscarMasIzqu(arbol->izq);
+    }
+    return arbol;
+}
+
+nodoArbolCancion* buscarMasDer (nodoArbolCancion* arbol){
+    nodoArbolCancion* masDer = NULL;
+    if(arbol!=NULL){
+        masDer=arbol;
+    }
+    else{
+        masDer=buscarMasDer(arbol->der);
+    }
+
+    return masDer;
+}
+
+nodoArbolCancion* borrarNodoArbolPorIdCancion (nodoArbolCancion* arbol, int idCancion)
+{
+    if (arbol != NULL){
+        if (idCancion == arbol->c.idCancion){
+            if (arbol->izq != NULL){
+                nodoArbolCancion* masDerecha = buscarMasDer(arbol->izq);
+                arbol->c = masDerecha->c;
+                arbol->izq = borrarNodoArbolPorIdCancion(arbol->izq, masDerecha->c.idCancion);
+            }
+            else if (arbol->der != NULL){
+                nodoArbolCancion* masIzquierda = buscarMasIzqu(arbol->der);
+                arbol->c = masIzquierda->c;
+                arbol->der = borrarNodoArbolPorIdCancion(arbol->der, masIzquierda->c.idCancion);
+            }
+            else{
+                free(arbol);
+                arbol = NULL;
+            }
+        }
+        else{
+            if (idCancion > arbol->c.idCancion){
+                arbol->der = borrarNodoArbolPorIdCancion(arbol->der, idCancion);
+            }
+            else{
+                arbol->izq = borrarNodoArbolPorIdCancion(arbol->izq, idCancion);
+            }
+        }
+    }
+    return arbol;
+}
+
+nodoArbolCancion * borrarCancion(nodoArbolCancion * canciones, int id){
+    int rta = existeCancionPorId(canciones, id);
+    stCancion cancion;
+    if(rta){
+        canciones = borrarNodoArbolPorIdCancion(canciones, id);
+        eliminarCancionArch(id);
+        printf("\n CANCION ELIMINADA CORRECTAMENTE");
+    }
+    else{
+        printf("\n ERROR: La cancion no se encontro...");
+    }
+    return canciones;
+}
+
+void modificarNodoDeCancion(nodoArbolCancion * canciones, stCancion cancion){
+    if(canciones){
+        if(canciones->c.idCancion == cancion.idCancion){
+            canciones->c = cancion;
+        }
+        else{
+            if(canciones->c.idCancion > cancion.idCancion){
+                modificarNodoDeCancion(canciones->izq, cancion);
+            }
+            else{
+                modificarNodoDeCancion(canciones->der, cancion);
+            }
+        }
+    }
+}
+
+void pasarArbol2Arreglo(stCancion * arreglo, nodoArbolCancion * canciones, int * validos){
+    if(canciones){
+        arreglo[*validos] = canciones->c;
+        ++*validos;
+        pasarArbol2Arreglo(arreglo, canciones->izq, validos);
+        pasarArbol2Arreglo(arreglo, canciones->der, validos);
+    }
+}
+
+
+

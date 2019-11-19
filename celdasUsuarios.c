@@ -20,18 +20,33 @@ int agregarUsuarioAArreglo(stCelda ** usuarios, int validos, stUsuario a){
     return validos;
 }
 
-void ordenarArregloDeUsuarios(stCelda * usuarios, int validos){
+void mostrarCeldaUsuario(stCelda usuario){
+    datosUsuarioUsuario(usuario.usr);
+    printf("\n <<<<<<< MIS CANCIONES >>>>>>>>>");
+    mostrarPlaylist(usuario.listaCanciones);
+}
+
+stCelda * ordenarArregloDeUsuarios(stCelda * usuarios, int validos){
     stCelda aux;
     for(int i=0;i<validos;i++){
         for(int v=0;i<validos;i++){
-            if(usuarios[i].usr.idUsuario>usuarios[v].usr.idUsuario){
+            if(strcmp(usuarios[i].usr.nombreUsuario, usuarios[v].usr.nombreUsuario)>0){
                 aux = usuarios[i];
                 usuarios[i] = usuarios[v];
                 usuarios[v] = aux;
             }
         }
     }
+    return usuarios;
 }
+
+
+void mostrarUsuarios(stCelda * usuarios, int validos){
+    for(int i=0;i<validos;i++){
+        datosUsuario(usuarios[i].usr);
+    }
+}
+
 
 int revisarNombreUsuario(stCelda * usuarios, int validos, char nombreUsuario[]){
     int c=0;
@@ -58,7 +73,7 @@ int borrarUsuarioEstructura(stCelda * usuarios, int validos, int id){
     return flag;
 }
 
-stUsuario validarLogin(char usuario[], char password[], stCelda usuarios[], int validos){ //CHEQUEA QUE EL USUARIO Y LA CONTRASEÑA SEAN CORRECTOS
+stUsuario validarLogin(char usuario[], char password[], stCelda * usuarios, int validos){ //CHEQUEA QUE EL USUARIO Y LA CONTRASEÑA SEAN CORRECTOS
     int flagUsuario = 0;
     int flagPassword = 0;
     int c = 0;
@@ -90,30 +105,56 @@ int archivoUsuarios2Arreglo(stCelda * usuarios){
     int v=0;
     if(pArch){
         while(fread(&a, sizeof(stUsuario), 1, pArch)>0){
-        celda.usr = a;
-        celda.listaCanciones = inicLista();
-        usuarios[v] = celda;
-        v++;
+            celda.usr = a;
+            if(a.eliminado==0){
+                celda.listaCanciones = inicLista();
+                usuarios[v] = celda;
+                v++;
+            }
         }
         fclose(pArch);
     }
     return v;
 }
 
-stUsuario modificarUsuario(stCelda * usuarios, int validos, int id){ //MODIFICA AL USUARIO DENTRO DEL REGISTRO
-    int flag = 0;
-    int opcion = 0;
-    stUsuario a;
-    FILE *pArchUsuarios = fopen(arUsuarios,"r+b");
-    if(pArchUsuarios != NULL){
-        while((flag==0)&&(fread(&a,sizeof(stUsuario),1,pArchUsuarios)>0)){
-            if(a.idUsuario == id){
-                flag = 1;
-            }
+stUsuario buscarUsuarioPorIdCeldas(stCelda * usuarios, int validos, int id){
+    int i=0, flag=0;
+    stUsuario rta;
+    while(i<validos && flag == 0){
+        if(usuarios[i].usr.idUsuario == id){
+            rta = usuarios[i].usr;
+            flag = 1;
         }
-        if(flag == 1){
-            fseek(pArchUsuarios, sizeof(stUsuario)*(id), SEEK_SET);
-            printf("<<<< USUARIO ENCONTRADO >>>> ");
+        i++;
+    }
+    if(flag==0){
+        rta.idUsuario == -1;
+    }
+    return rta;
+}
+
+int buscarPosPorIdCeldas(stCelda * usuarios, int validos, int id){
+    int i=0, flag=0;
+    while(i<validos && flag == 0){
+        if(usuarios[i].usr.idUsuario == id){
+            flag = 1;
+        }
+        else{
+            i++;
+        }
+    }
+    return i;
+}
+
+
+stUsuario modificarUsuario(stCelda * usuarios, int validos, int id){ //MODIFICA AL USUARIO DENTRO DEL REGISTRO
+    stUsuario a;
+    int pos = -1;
+    int rta=1;
+    int opcion;
+    a = buscarUsuarioPorIdCeldas(usuarios, validos, id);
+    if(a.idUsuario!=-1){
+        printf("<<<< USUARIO ENCONTRADO >>>> ");
             datosUsuario(a);
             printf("\n----------------------------------------------------");
             printf("\n Qué desea modificar?...");
@@ -128,48 +169,51 @@ stUsuario modificarUsuario(stCelda * usuarios, int validos, int id){ //MODIFICA 
             switch(opcion){
                 case 1:
                     printf("\n NUEVO NOMBRE DE USUARIO.......:  ");
+                    while(rta==1){
                     fflush(stdin);
                     gets(a.nombreUsuario);
-                    fwrite(&a, sizeof(stUsuario), 1, pArchUsuarios);
+                    rta = revisarNombreUsuario(usuarios, validos, a.nombreUsuario);
+                    if(rta==1){
+                        printf("\n USUARIO YA EXISTENTE... ");
+                        printf("\n INGRESE OTRO NOMBRE DE USUARIO... \n");
+                        }
+                    }
                     break;
                 case 2:
                     printf("\n NUEVA CLAVE.......:  ");
                     fflush(stdin);
                     gets(a.pass);
-                    fwrite(&a, sizeof(stUsuario), 1, pArchUsuarios);
                     break;
                 case 3:
                     printf("\n NUEVA FECHA DE NACIMIENTO.......:  ");
                     scanf("%d", &a.anioNacimiento);
-                    fwrite(&a, sizeof(stUsuario), 1, pArchUsuarios);
                     break;
                 case 4:
                     printf("\n NUEVO GENERO.......:  ");
                     fflush(stdin);
                     scanf("%c", &a.genero);
-                    fwrite(&a, sizeof(stUsuario), 1, pArchUsuarios);
                     break;
                 case 5:
                     printf("\n NUEVO PAIS.......:  ");
                     fflush(stdin);
                     gets(a.pais);
-                    fwrite(&a, sizeof(stUsuario), 1, pArchUsuarios);
                     break;
                 case 6:
                     printf("\n NUEVO TIPO DE USUARIO.......:  ");
                     scanf("%d", &a.tipoUsuario);
-                    fwrite(&a, sizeof(stUsuario), 1, pArchUsuarios);
                     break;
                 default:
+                    printf("\n OPCIÓN INVÁLIDA...");
+                    system("pause");
                     return;
-            }
-        }
-        else{
-            a.idUsuario = -1;
-        }
-        fclose(pArchUsuarios);
+                }
+            pos = buscarPosPorIdCeldas(usuarios, validos, id);
+            usuarios[pos].usr = a;
+            modificarUsuarioArchivo(a);
+            printf("\n USUARIO MODIFICADO CORRECTAMENTE");
     }
-
     return a;
 }
+
+
 
